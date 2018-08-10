@@ -1,0 +1,17 @@
+Port 22
+PermitRootLogin no
+StrictModes yes
+MaxSessions 3
+PubkeyAuthentication yes
+DenyUsers root
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+AllowAgentForwarding no
+AllowTcpForwarding yes
+GatewayPorts no
+X11Forwarding no
+TCPKeepAlive yes
+PermitTunnel no
+Subsystem sftp /usr/lib/ssh/sftp-server

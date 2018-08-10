@@ -1,0 +1,5 @@
+#!/bin/sh
+chown -R root:root /etc/apk/keys
+adduser -h /home/anon -G abuild -s /bin/ash -D anon
+chown anon:anon /home/anon
+setsid su -l -c 'COMMAND' anon &
