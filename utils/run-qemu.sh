@@ -1,7 +1,7 @@
 #!/bin/sh
 branch=latest-stable
 arch=x86_64
-repo=http://dl-cdn.alpinelinux.org/alpine/${branch}/main
+repo=http://dl-cdn.alpinelinux.org/alpine/${branch}
 flavor=vanilla
 overlay="$(readlink -f "$1")"
 
@@ -10,16 +10,16 @@ overlay="$(readlink -f "$1")"
 kernel=$(mktemp)
 initrd=$(mktemp)
 
-wget -O "$kernel" "http://boot.alpinelinux.org/images/${branch}/${arch}/vmlinuz-${flavor}"
-wget -O "$initrd" "http://boot.alpinelinux.org/images/${branch}/${arch}/initramfs-${flavor}"
+wget -O "$kernel" "${repo}/releases/${arch}/netboot/vmlinuz-${flavor}"
+wget -O "$initrd" "${repo}/releases/${arch}/netboot/initramfs-${flavor}"
 
 [ -n "$overlay" ] && (
   cd "${overlay%/*}"
   echo "${overlay##*/}" | cpio -H newc -o
 ) | gzip >> "$initrd"
 
-modloop="http://boot.alpinelinux.org/images/${branch}/${arch}/modloop-${flavor}"
-append="console=ttyS0,115200 alpine_repo=${repo} modules=loop,squashfs,virtio_net modloop=${modloop} quiet"
+modloop="${repo}/releases/${arch}/netboot/modloop-${flavor}"
+append="console=ttyS0,115200 alpine_repo=${repo}/main modules=loop,squashfs,virtio_net modloop=${modloop} quiet"
 
 if [ -n "$overlay" ]; then
   append="$append apkovl=/${overlay##*/}"
