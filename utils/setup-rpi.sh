@@ -65,7 +65,7 @@ mount -t vfat "$part" "$mountpoint" || fail "Unable to mount partition"
 
 (
   cd "$mountpoint" || fail "Unable to use mountpoint"
-  curl -s http://dl-cdn.alpinelinux.org/alpine/v3.7/releases/armhf/alpine-rpi-3.7.0-armhf.tar.gz | tar -xvz --no-same-owner
+  curl -s http://dl-cdn.alpinelinux.org/alpine/v3.8/releases/armhf/alpine-rpi-3.8.0-armhf.tar.gz | tar -xvz --no-same-owner
 
   [ -e "start.elf" ] || fail "Failed to extract tarball"
 
